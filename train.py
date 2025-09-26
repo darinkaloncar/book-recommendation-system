@@ -162,7 +162,7 @@ def train_loop(args):
         print(f"Epoch {epoch} Test RMSE: {test_rmse:.4f}")
 
         # save checkpoint
-        ckpt_path = f"checkpoint_epoch{epoch}.pth"
+        ckpt_path = f"checkpoints/checkpoint_epoch{epoch}.pth"
         torch.save({
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
