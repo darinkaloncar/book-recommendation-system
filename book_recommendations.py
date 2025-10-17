@@ -12,8 +12,6 @@ author_map = {a: i for i, a in enumerate(books_sub['author'].unique())}
 books_sub['author_idx'] = books_sub['author'].map(author_map)
 pub_map = {p: i for i, p in enumerate(books_sub['publisher'].unique())}
 books_sub['pub_idx'] = books_sub['publisher'].map(pub_map)
-print("ovde")
-print(len(books_sub))
 
 # 3. Load your trained model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -33,9 +31,6 @@ if user_id_to_test not in user_map:
     print(f"User {user_id_to_test} not found in dataset")
     exit()
 
-print("ovde1")
-print(len(books_sub))
-
 u_idx = user_map[user_id_to_test]
 
 # compute scores for all books
@@ -49,9 +44,6 @@ book_year_norm = torch.tensor(books_sub['year_norm'].values, device=device, dtyp
 with torch.no_grad():
     scores = model(user_indices, book_indices, author_indices, pub_indices, user_age, book_year_norm)
 
-
-print("ovde2")
-print(len(books_sub))
 # get top-N recommendations
 topN = 11
 top_indices = torch.topk(scores, min(topN, len(books_sub))).indices.cpu().numpy()
