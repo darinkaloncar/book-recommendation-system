@@ -21,7 +21,7 @@ The system combines **user embeddings, item embeddings, author embeddings, publi
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/book-recommendation-system.git
+git clone https://github.com/darinkaloncar/book-recommendation-system.git
 cd book-recommendation-system
 ```
 ### 2. Install dependencies
