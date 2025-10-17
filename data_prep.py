@@ -71,7 +71,6 @@ def preprocess(users, books, ratings, min_user_ratings=5, min_book_ratings=5):
     book_counts = ratings.groupby('book_id').size()
     valid_users = set(user_counts[user_counts >= min_user_ratings].index)
     valid_books = set(book_counts[book_counts >= min_book_ratings].index)
-    print(f"Number of valid users:", valid_users, user_counts)
 
     # if all books and users are removed, we undo the previous step
     if len(valid_users) == 0 or len(valid_books) == 0:
@@ -86,7 +85,6 @@ def preprocess(users, books, ratings, min_user_ratings=5, min_book_ratings=5):
     unique_books = ratings['book_id'].unique()
     user_map = {old: new for new, old in enumerate(unique_users)}
     book_map = {old: new for new, old in enumerate(unique_books)}
-    print(f"Number of unique users:",unique_users, user_map)
 
     # add new column which has good indices, user_map = {10:0, 23:1, 42:2}
     ratings['user_idx'] = ratings['user_id'].map(user_map)
@@ -108,12 +106,10 @@ def preprocess(users, books, ratings, min_user_ratings=5, min_book_ratings=5):
     mean = books_sub['year'].mean() if len(books_sub) > 0 else 0.0
     std = books_sub['year'].std() if len(books_sub) > 0 else 1.0
     books_sub['year_norm'] = (books_sub['year'] - mean) / (std + 1e-8)
-    print(books_sub['year_norm'])
 
     # fill missing author/publisher
     books_sub['author'] = books_sub.get('author', 'Unknown')
     books_sub['publisher'] = books_sub.get('publisher', 'Unknown')
-    print(books_sub[0:2])
     return users_sub.reset_index(drop=True), books_sub.reset_index(drop=True), ratings.reset_index(drop=True), user_map, book_map
 
 
